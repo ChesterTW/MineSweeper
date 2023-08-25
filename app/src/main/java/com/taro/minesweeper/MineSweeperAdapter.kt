@@ -20,6 +20,9 @@ class MineSweeperAdapter(): RecyclerView.Adapter<MineSweeperAdapter.MineSweeperV
         fun bind(mData: Cell){
             with(binding){
                 tvMineCount.text = mData.nearbyMineCount.toString()
+                tvMineCount.setOnClickListener {
+
+                }
             }
         }
     }

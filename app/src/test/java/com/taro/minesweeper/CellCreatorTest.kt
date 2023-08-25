@@ -27,9 +27,19 @@ class CellCreatorTest {
         val cellCreator = CellCreator()
         cellCreator.level = 3
         var cells: List<Cell> = cellCreator.create()
-        for (element in cells){
-            element.isMine = false
-        }
+
+        cells[2].isMine = true
+
+        cells = cellCreator.open(cells, 6)
+
+        Assert.assertEquals(STATUS.OPEN, cells[6].status)
+    }
+
+    @Test
+    fun cell_same_should_open(){
+        val cellCreator = CellCreator()
+        cellCreator.level = 3
+        var cells: List<Cell> = cellCreator.create()
 
         cells[2].isMine = true
 
@@ -53,9 +63,6 @@ class CellCreatorTest {
         val cellCreator = CellCreator()
         cellCreator.level = 3
         var cells: List<Cell> = cellCreator.create()
-        for (element in cells){
-            element.isMine = false
-        }
         cells[0].isMine = true
         cells[2].isMine = true
         cells[7].isMine = true
@@ -71,9 +78,6 @@ class CellCreatorTest {
         val cellCreator = CellCreator()
         cellCreator.level = 3
         var cells: List<Cell> = cellCreator.create()
-        for (element in cells){
-            element.isMine = false
-        }
         cells[0].isMine = true
         cells[2].isMine = true
         cells[7].isMine = true
@@ -89,9 +93,6 @@ class CellCreatorTest {
         val cellCreator = CellCreator()
         cellCreator.level = 3
         var cells: List<Cell> = cellCreator.create()
-        for (element in cells){
-            element.isMine = false
-        }
         cells[0].isMine = true
         cells[2].isMine = true
         cells[7].isMine = true
@@ -107,9 +108,6 @@ class CellCreatorTest {
         val cellCreator = CellCreator()
         cellCreator.level = 3
         var cells: List<Cell> = cellCreator.create()
-        for (element in cells){
-            element.isMine = false
-        }
         cells[0].isMine = true
         cells[2].isMine = true
         cells[7].isMine = true
@@ -125,9 +123,6 @@ class CellCreatorTest {
         val cellCreator = CellCreator()
         cellCreator.level = 3
         var cells: List<Cell> = cellCreator.create()
-        for (element in cells){
-            element.isMine = false
-        }
         cells[0].isMine = true
         cells[2].isMine = true
         cells[7].isMine = true
@@ -143,9 +138,6 @@ class CellCreatorTest {
         val cellCreator = CellCreator()
         cellCreator.level = 3
         var cells: List<Cell> = cellCreator.create()
-        for (element in cells){
-            element.isMine = false
-        }
         cells[0].isMine = true
         cells[2].isMine = true
         cells[7].isMine = true

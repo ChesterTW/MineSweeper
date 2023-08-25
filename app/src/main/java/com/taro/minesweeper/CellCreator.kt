@@ -1,6 +1,7 @@
 package com.taro.minesweeper
 
 
+import android.util.Log
 import kotlin.random.Random
 
 class CellCreator {
@@ -72,16 +73,40 @@ class CellCreator {
     }
 
     fun open(cells: List<Cell>, openIndex: Int): List<Cell> {
+        val adjacentOffsets = listOf(
+            -level - 1, -level, -level + 1,
+            -1, +1,
+            level - 1, level, level + 1
+        )
 
-        cells.forEachIndexed{ index, cell ->
-            if(!cell.isMine){
-                cell.status = STATUS.OPEN
+        val clickedCell = cells[openIndex]
 
+        var Newcell = cells
+
+        // 如果点击的单元格有地雷或已经打开，直接返回
+        if (clickedCell.isMine || clickedCell.status == STATUS.OPEN) {
+            return Newcell
+        } else {
+            Newcell[openIndex].status = STATUS.OPEN
+
+            val shouldOpenAdjacentCells = clickedCell.nearbyMineCount == 0
+
+            if (shouldOpenAdjacentCells) {
+                for (offset in adjacentOffsets) {
+                    val neighborIndex = openIndex + offset
+                    if (isValidIndex(neighborIndex) && Newcell[neighborIndex].status != STATUS.OPEN) {
+                        Newcell = open(Newcell, neighborIndex)  // 直接递归调用 open() 函数
+                    }
+                }
             }
         }
 
-        return cells
+        return Newcell
     }
 
+
+    private fun isValidIndex(index: Int): Boolean {
+        return index >= 0 && index < level * level
+    }
 
 }
