@@ -23,6 +23,23 @@ class CellCreatorTest {
     }
 
     @Test
+    fun cell_should_open(){
+        val cellCreator = CellCreator()
+        cellCreator.level = 3
+        var cells: List<Cell> = cellCreator.create()
+        for (element in cells){
+            element.isMine = false
+        }
+
+        cells[2].isMine = true
+
+        cells = cellCreator.open(cells, 6)
+
+        val openCount = cells.count { it.status == STATUS.OPEN }
+        Assert.assertEquals(5, openCount)
+    }
+
+    @Test
     fun cell_should_have_15_percent_mine(){
         val cellCreator = CellCreator()
         cellCreator.level = 9

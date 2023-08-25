@@ -1,14 +1,11 @@
 package com.taro.minesweeper
 
-import kotlinx.coroutines.yield
-import org.junit.Assert
-import org.junit.Test
-import kotlin.math.min
+
 import kotlin.random.Random
 
 class CellCreator {
 
-    var level: Int = 0
+    var level: Int = 9
 
     fun create(): List<Cell> {
 
@@ -21,7 +18,7 @@ class CellCreator {
 
                 val number = x * level + y
                 cell.isMine = false
-                if(mineIndex.filter { it == number }.isNotEmpty()){
+                if(mineIndex.any { it == number }){
                     cell.isMine = true
                 }
 
@@ -30,7 +27,7 @@ class CellCreator {
             }
         }
 
-        return list
+        return getNearbyMineCount(list, level)
     }
 
     private fun createRandomIndexes(cellSize: Int): MutableList<Int>{
@@ -68,6 +65,18 @@ class CellCreator {
                 }
 
                 cell.nearbyMineCount = mineCount
+            }
+        }
+
+        return cells
+    }
+
+    fun open(cells: List<Cell>, openIndex: Int): List<Cell> {
+
+        cells.forEachIndexed{ index, cell ->
+            if(!cell.isMine){
+                cell.status = STATUS.OPEN
+
             }
         }
 
